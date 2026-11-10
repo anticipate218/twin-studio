@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Twin Studio · 城市孪生建模与渲染工作台</title>
+<meta name="description" content="度量约束与证据驱动的城市三维建模工作台：场景渲染、材质评审、影像重建与模型交付。">
+<meta name="theme-color" content="#080f1c">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 4 58 19v26L32 60 6 45V19z' fill='%2307111f' stroke='%2353e3ff' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='9' fill='%23a78bfa'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/static/css/studio.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "/vendor/three/three.module.js",
+    "three/addons/": "/vendor/three/addons/"
+  }
+}
+</script>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<div id="app">
+  <header class="topbar">
+    <a class="brand" href="#/scene">
+      <svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true"><defs><linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#53e3ff"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs><path d="M32 4 58 19v26L32 60 6 45V19z" fill="none" stroke="url(#bg1)" stroke-width="4"/><path d="M32 18 46 26v14l-14 8-14-8V26z" fill="url(#bg1)" opacity=".35"/><circle cx="32" cy="33" r="5" fill="#e8f7ff"/></svg>
+      <span class="brand-text"><b>Twin Studio</b><small>度量约束 · 证据驱动</small></span>
+    </a>
+    <nav class="tabs" id="main-tabs" aria-label="主要功能">
+      <a href="#/scene" data-view="scene" class="tab active"><span class="ico">◈</span>场景渲染</a>
+      <a href="#/material" data-view="material" class="tab"><span class="ico">▦</span>材质工坊</a>
+      <a href="#/modeling" data-view="modeling" class="tab"><span class="ico">⬢</span>程序化建模</a>
+      <a href="#/system" data-view="system" class="tab"><span class="ico">◎</span>系统总览</a>
+    </nav>
+    <div class="status-chips" id="status-chips">
+      <a class="btn primary upload-entry" href="#/modeling/recon"><span aria-hidden="true">＋</span>上传影像</a>
+      <a class="chip" id="chip-service" href="#/system" title="查看工作台状态"><i class="dot" aria-hidden="true"></i><span>连接中</span></a>
+      <span class="chip" id="chip-gpu" title="计算设备"><i class="dot" aria-hidden="true"></i><span>检测中</span></span>
+      <span class="clock" id="clock">--:--:--</span>
+    </div>
+  </header>
+
+  <main id="views">
+    <div id="route-feedback" class="route-feedback hidden" role="alert"><span></span><button class="btn" type="button" id="route-retry">重新加载</button></div>
+    <!-- ============ 场景渲染 ============ -->
+    <section class="view active" id="view-scene" data-view="scene">
+      <aside class="panel panel-left glass">
+        <div class="panel-head">
+          <h2>场景资产</h2>
+          <span class="muted" id="model-count">—</span>
+        </div>
+        <p class="panel-intro">选择场景，探索建筑与关联证据</p>
+        <div class="search">
+          <input id="model-search" type="search" aria-label="搜索场景" placeholder="搜索场景名称或关键词" autocomplete="off">
+        </div>
+        <div class="filter-chips" id="model-filters">
+          <button class="fchip active" data-group="all">全部</button>
+          <button class="fchip" data-group="Potsdam">Potsdam</button>
+          <button class="fchip" data-group="Polytech">Polytech</button>
+          <button class="fchip" data-group="Upload">上传重建</button>
+          <button class="fchip" data-group="unregistered">未登记</button>
+        </div>
+        <div class="model-list" id="model-list"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
+      </aside>
+
+      <div class="viewport" id="viewport">
+        <div class="hud-top">
+          <div class="hud-title">
+            <h1 id="hud-title">选择一个 3DGS 模型</h1>
+            <div class="hud-metrics" id="hud-metrics"></div>
+          </div>
+          <div class="hud-stats" id="hud-stats"><span id="stat-fps">— fps</span><span id="stat-splats">0 高斯</span><span id="stat-sort">排序 —</span></div>
+        </div>
+        <div class="loader hidden" id="loader">
+          <svg viewBox="0 0 120 120" class="ring"><circle cx="60" cy="60" r="52" class="ring-bg"/><circle cx="60" cy="60" r="52" class="ring-fg" id="loader-ring"/></svg>
+          <div class="loader-text"><b id="loader-pct">0%</b><span id="loader-msg">准备中…</span></div>
+        </div>
+        <div class="empty-state" id="empty-state">
+          <div class="orb"></div>
+          <p>选择一个场景，开启三维探索</p>
+        </div>
+        <div class="measure-readout hidden" id="measure-readout"></div>
+        <div class="building-tags" id="building-tags"></div>
+        <div class="toolbar glass" id="toolbar">
+          <button data-act="reset" title="重置视角 (R)">⟲<span>复位</span></button>
+          <button data-act="top" title="俯视 (1)">⊤<span>俯视</span></button>
+          <button data-act="front" title="正视 (2)">▭<span>正视</span></button>
+          <button data-act="oblique" title="斜视 (3)">◩<span>斜视</span></button>
+          <i class="sep"></i>
+          <button data-act="orbit" class="toggle" title="自动环绕 (空格)">↻<span>环绕</span></button>
+          <button data-act="points" class="toggle" title="点云模式 (P)">⁙<span>点云</span></button>
+          <button data-act="crop" class="toggle on" title="裁剪离群高斯 (C)">⌗<span>裁剪</span></button>
+          <button data-act="buildings" class="toggle on" title="建筑叠加 (B)">⬢<span>建筑</span></button>
+          <button data-act="measure" class="toggle" title="测距 (M)">⟷<span>测距</span></button>
+          <i class="sep"></i>
+          <button data-act="shot" title="截图">◉<span>截图</span></button>
+          <button data-act="full" title="全屏 (F)">⛶<span>全屏</span></button>
+        </div>
+        <div class="keyhint">拖动旋转 · 右键平移 · 滚轮缩放 · 双击聚焦</div>
+      </div>
+
+      <aside class="panel panel-right glass" id="inspector">
+        <div class="seg" id="insp-tabs">
+          <button class="active" data-tab="model">模型</button>
+          <button data-tab="render">渲染</button>
+          <button data-tab="bld">建筑</button>
+        </div>
+        <div class="insp-body" id="insp-model">
+          <p class="muted">尚未加载模型。</p>
+        </div>
+        <div class="insp-body hidden" id="insp-render">
+          <label class="ctl"><span>高斯尺度 <b id="v-scale">1.00</b></span><input type="range" id="r-scale" min="0.2" max="2" step="0.01" value="1"></label>
+          <label class="ctl"><span>不透明度 <b id="v-alpha">1.00</b></span><input type="range" id="r-alpha" min="0.2" max="3" step="0.01" value="1"></label>
+          <label class="ctl"><span>亮度 <b id="v-bright">1.00</b></span><input type="range" id="r-bright" min="0.4" max="2" step="0.01" value="1"></label>
+          <label class="ctl"><span>点云点径 (px) <b id="v-psize">2.0</b></span><input type="range" id="r-psize" min="0.5" max="8" step="0.1" value="2"></label>
+          <label class="ctl"><span>环绕速度 <b id="v-orbit">0.6</b></span><input type="range" id="r-orbit" min="0.1" max="3" step="0.05" value="0.6"></label>
+          <div class="ctl">
+            <span>场景朝上轴</span>
+            <div class="seg small" id="up-axis">
+              <button data-up="auto" class="active">自动</button><button data-up="+z">+Z</button><button data-up="-z">−Z</button><button data-up="+y">+Y</button><button data-up="-y">−Y</button>
+            </div>
+          </div>
+          <div class="ctl">
+            <span>环境特效</span>
+            <div class="checks">
+              <label><input type="checkbox" id="c-grid" checked> 扫描地面网格</label>
+              <label><input type="checkbox" id="c-dust"> 空间粒子</label>
+              <label><input type="checkbox" id="c-stars"> 星空背景</label>
+            </div>
+          </div>
+          <p class="muted small">调整显示参数不会改变原始模型。高斯渲染保留场景细节，点云模式便于观察空间结构。</p>
+        </div>
+        <div class="insp-body hidden" id="insp-bld">
+          <p class="muted">当前模型没有建筑属性数据。</p>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ============ 材质工坊 ============ -->
+    <section class="view" id="view-material" data-view="material"></section>
+
+    <!-- ============ 程序化建模 ============ -->
+    <section class="view" id="view-modeling" data-view="modeling"></section>
+
+    <!-- ============ 系统总览 ============ -->
+    <section class="view" id="view-system" data-view="system"></section>
+  </main>
+</div>
+<div id="toasts" aria-live="polite"></div>
+<script type="module" src="/static/js/app.js"></script>
+</body>
+</html>

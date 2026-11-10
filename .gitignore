@@ -1,0 +1,36 @@
+# Generated data and weights
+/data/
+/material_agent/models/
+/material_agent/runs/
+/material_agent/logs/
+/material_agent/memory/
+/material_agent/scan/
+*.splat
+*.ply
+*.glb
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+# Credentials and personal configuration
+.env
+.env.*
+!.env.example
+config.local.json
+*.pem
+*.key
+# Environments, caches and editors
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+node_modules/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log
+*.bak
+*.tmp
+/.preview/

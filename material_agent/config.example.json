@@ -1,0 +1,9 @@
+{
+  "tencent_key": "",
+  "amap_key": "",
+  "mapillary_token": "",
+  "glm_key": "",
+  "mapillary_proxy": null,
+  "glm_model": "glm-4v-flash",
+  "fallback_ref": null
+}

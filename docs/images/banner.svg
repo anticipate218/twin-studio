@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="290" viewBox="0 0 1280 290" role="img" aria-label="Twin Studio">
+<defs>
+  <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0b1424"/><stop offset="1" stop-color="#14283b"/></linearGradient>
+  <linearGradient id="accent"><stop stop-color="#66dcf2"/><stop offset="1" stop-color="#9dacf7"/></linearGradient>
+  <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M42 0H0V42" fill="none" stroke="#6eddeb" stroke-opacity=".06"/></pattern>
+</defs>
+<rect width="1280" height="290" rx="20" fill="url(#bg)"/>
+<rect width="1280" height="290" rx="20" fill="url(#grid)"/>
+<g stroke="url(#accent)" fill="none" stroke-width="3"><path d="M78 77l27-16 27 16v32l-27 16-27-16z"/><path d="M92 85l13-8 13 8v16l-13 8-13-8z"/></g>
+<text x="157" y="106" font-family="Arial,Helvetica,sans-serif" font-size="54" font-weight="700" letter-spacing="-1" fill="#f0f6ff">Twin Studio</text>
+<text x="80" y="169" font-family="Arial,'Microsoft YaHei',sans-serif" font-size="24" fill="#c0d6e9">城市三维生成与数字孪生工作台</text>
+<text x="81" y="205" font-family="Arial,Helvetica,sans-serif" font-size="15" letter-spacing="2.3" fill="#76c5d7">METRIC GEOMETRY  /  TRACEABLE EVIDENCE  /  3D CREATION</text>
+<path d="M80 239h380" stroke="url(#accent)" stroke-width="2"/>
+<g fill="#122b3e" stroke="#6bd3e3" stroke-opacity=".6" stroke-width="1.4" stroke-linejoin="round">
+  <path d="M824 214V136l49-26 49 26v78l-49 27z"/><path d="M824 136l49 28 49-28M873 164v77"/>
+  <path d="M924 185V65l56-30 56 30v120l-56 32z"/><path d="M924 65l56 32 56-32M980 97v120"/>
+  <path d="M1037 216V115l46-25 46 25v101l-46 26z"/><path d="M1037 115l46 26 46-26M1083 141v101"/>
+  <path d="M1130 209V157l33-18 33 18v52l-33 19z"/><path d="M1130 157l33 19 33-19M1163 176v52"/>
+</g>
+<g stroke="#6bd3e3" stroke-opacity=".27" stroke-width="1.3"><path d="M936 98l34 19m-34 1 34 19m-34 1 34 19m-34 1 34 19M991 117l34-19m-34 39 34-19m-34 39 34-19m-34 39 34-19M834 161l27 15m-27 4 27 15m-27 4 27 15M1047 141l25 14m-25 5 25 14m-25 5 25 14"/></g>
+<circle cx="980" cy="35" r="4" fill="#88e7f4"/>
+<circle cx="873" cy="110" r="3" fill="#88e7f4"/>
+<circle cx="1083" cy="90" r="3" fill="#88e7f4"/>
+</svg>
