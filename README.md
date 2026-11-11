@@ -1,5 +1,8 @@
 <div align="center">
-  <img src="docs/images/banner.svg" alt="Twin Studio — 城市三维生成与数字孪生工作台" width="100%">
+  <a href="https://anticipate218.github.io/twin-studio/#video"><img src="docs/images/video-cover.jpg" alt="点击播放 Twin Studio 一分钟宣传视频" width="100%"></a>
+  <p><strong><a href="https://anticipate218.github.io/twin-studio/#video">▶ 播放宣传视频 · 63 秒</a>　｜　<a href="https://anticipate218.github.io/twin-studio/app/">进入在线体验 →</a></strong></p>
+  <p><sub>中文讲解与字幕 · 点击封面进入播放器 · <a href="https://github.com/anticipate218/twin-studio/releases/tag/showcase-video">下载原始视频</a></sub></p>
+  <h1>Twin Studio</h1>
   <p><strong>度量约束 · 证据驱动 · 三维一致性</strong></p>
   <p>把场景浏览、建筑证据、立面材质和程序化建模，连接在同一个工作台中。</p>
   <p>
@@ -84,6 +87,12 @@ flowchart LR
 **能力边界**：影像/DSM 内置处理采用地表、屋顶及立面面元构建，并非 SfM 或光度 3DGS 训练；仅影像输入不会推断真实建筑高度。材质生成需要自行配置权重、GPU 和相关 API。界面不会把缺失依赖显示为生成成功。
 
 ## 快速开始
+
+### 无需安装，在线体验
+
+**体验站：[anticipate218.github.io/twin-studio](https://anticipate218.github.io/twin-studio/)** · **[直接打开工作台](https://anticipate218.github.io/twin-studio/app/)**
+
+在线站提供合成示例场景、材质预览、参数建模和浏览器 GLB 导出；编辑和导出记录只保存在当前浏览会话。GPU 材质生成、影像/DSM 处理和真实数据接入需要部署下方完整版。在线示例不包含实测地理证据或AI评分。
 
 ### 1. 启动工作台
 

@@ -1,5 +1,18 @@
 # 启动与数据接入
 
+## 在线体验
+
+体验站：[https://anticipate218.github.io/twin-studio/](https://anticipate218.github.io/twin-studio/)。可观看宣传片，并进入浏览器工作台体验合成场景、材质和参数建模，下载自己生成的 GLB。该站不连接私有服务器，不运行 GPU 生成任务，刷新页面会清除会话记录。
+
+维护者可运行以下命令构建同样的公开站点。生成目录 _site 只含明确列出的前端文件、合成示例和可选的最终视频，不包含私有数据、模型权重或配置。
+
+~~~bash
+python tools/build_demo_site.py --video-file /path/to/Twin_Studio_60s_Promo.mp4
+python -m http.server 8093 --directory _site
+~~~
+
+GitHub Pages 工作流从 showcase-video Release 下载最终视频后构建站点；媒体文件不进入 Git 历史。
+
 ## 环境分层
 
 | 用途 | 环境 |

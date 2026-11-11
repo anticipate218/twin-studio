@@ -1,0 +1,36 @@
+name: Deploy experience site
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/configure-pages@v5
+      - name: Download published video
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release download showcase-video --repo "${{ github.repository }}" --pattern Twin_Studio_60s_Promo.mp4 --dir .media
+      - name: Build public experience
+        run: python tools/build_demo_site.py --video-file .media/Twin_Studio_60s_Promo.mp4
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,6 @@
+.demo-notice { flex:none; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:8px 20px; background:#133041; border-bottom:1px solid #2e576b; color:#d3eef7; font-size:12px; }
+.demo-notice nav { display:flex; gap:16px; white-space:nowrap; }
+.demo-notice a { color:#a8efff; }
+#chip-gpu,.clock,.upload-entry { display:none!important; }
+#run-filters [data-k="agent"],#run-filters [data-k="pass"] { display:none; }
+@media(max-width:700px){.demo-notice{padding:8px 12px;align-items:flex-start;font-size:11px}.demo-notice span{max-width:64%}.demo-notice nav{flex-direction:column;gap:4px}}

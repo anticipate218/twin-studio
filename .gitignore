@@ -34,3 +34,5 @@ Thumbs.db
 *.bak
 *.tmp
 /.preview/
+/_site/
+/.media/

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#08111e">
+  <meta name="description" content="Twin Studio 城市三维建模与数字孪生工作台。观看一分钟真实操作演示，在线体验场景、材质、程序化建模与GLB导出。">
+  <meta property="og:title" content="Twin Studio · 在线体验">
+  <meta property="og:description" content="度量约束，证据驱动。让三维模型可查看、可追溯、可交付。">
+  <meta property="og:image" content="https://anticipate218.github.io/twin-studio/assets/video-cover.jpg">
+  <title>Twin Studio · 在线体验</title>
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+  <header class="site-header wrap">
+    <a class="brand" href="./" aria-label="Twin Studio 首页"><span class="brand-mark" aria-hidden="true">◈</span><span>Twin Studio<small>城市三维 · 数字孪生</small></span></a>
+    <nav aria-label="网站导航"><a href="#video">演示视频</a><a href="https://github.com/anticipate218/twin-studio" target="_blank" rel="noopener">开源仓库 ↗</a><a class="button small" href="app/">立即体验</a></nav>
+  </header>
+  <main>
+    <section class="hero wrap">
+      <p class="eyebrow"><span></span> OPEN SOURCE · INTERACTIVE 3D WORKSPACE</p>
+      <h1>让城市三维模型<br><em>可查看、可追溯、可交付。</em></h1>
+      <p class="intro">从场景与建筑，到材质预览和参数建模。<br>在同一个工作台里，探索三维空间，创造可复用的模型资产。</p>
+      <div class="hero-actions"><a class="button primary" href="app/">进入在线体验 <span aria-hidden="true">→</span></a><a class="button secondary" href="#video">▷ 观看一分钟演示</a></div>
+      <p class="subtle">无需登录 · 浏览器运行 · 可导出 GLB</p>
+    </section>
+    <section class="video-section wrap" id="video" aria-labelledby="video-title">
+      <div class="section-head"><div><p class="eyebrow">SEE IT IN ACTION</p><h2 id="video-title">一分钟，看见完整工作流</h2></div><span class="video-meta">63 秒 · 1080p · 中文讲解</span></div>
+      <div class="video-frame"><video id="promo-video" controls playsinline preload="none" poster="assets/video-cover.jpg" aria-label="Twin Studio 一分钟宣传视频"><source src="__VIDEO_SOURCE__" type="video/mp4">当前浏览器无法播放，请使用下方链接下载视频。</video></div>
+      <div class="video-caption"><span>真实操作演示：场景 → 建筑证据 → 材质 → 建模与导出</span><a href="__VIDEO_SOURCE__" download>下载视频 ↗</a></div>
+      <p id="video-error" hidden>视频暂时无法加载。你仍可<a href="app/">进入在线体验</a>，或<a href="https://github.com/anticipate218/twin-studio/releases/tag/showcase-video">从发布页下载视频</a>。</p>
+    </section>
+    <section class="features wrap" aria-labelledby="features-title">
+      <div class="section-head"><div><p class="eyebrow">EXPLORE THE WORKSPACE</p><h2 id="features-title">四个模块，一条创作路径</h2></div></div>
+      <div class="feature-grid">
+        <a class="feature" href="app/#/scene"><span class="number">01</span><h3>场景渲染</h3><p>切换视角，探索三维街区；点选建筑，理解空间结构。</p><span class="feature-link">探索场景 →</span></a>
+        <a class="feature" href="app/#/material"><span class="number">02</span><h3>材质工坊</h3><p>尝试示例材质、检查平铺效果，在三维立面上实时预览。</p><span class="feature-link">预览材质 →</span></a>
+        <a class="feature" href="app/#/modeling"><span class="number">03</span><h3>程序化建模</h3><p>调整街区和建筑参数，切换光照，将模型导出为 GLB。</p><span class="feature-link">开始建模 →</span></a>
+        <a class="feature" href="app/#/system"><span class="number">04</span><h3>项目总览</h3><p>查看示例资产与当前会话的导出成果，了解完整系统能力。</p><span class="feature-link">查看总览 →</span></a>
+      </div>
+    </section>
+    <section class="scope wrap">
+      <div><p class="eyebrow">ABOUT THIS DEMO</p><h2>在线轻量体验，完整源码开放。</h2></div>
+      <div><p>体验站采用程序生成的场景与材质，关联资料也仅用于演示界面，不代表实测证据。建模与导出在浏览器内完成，刷新后会话记录清空。</p><p>影像/DSM 处理、真实证据包和 GPU 材质生成，请在完整部署中配置数据与计算环境。</p><a class="text-link" href="https://github.com/anticipate218/twin-studio/blob/main/docs/GETTING_STARTED.md" target="_blank" rel="noopener">查看完整部署指南 ↗</a></div>
+    </section>
+    <section class="bottom-cta wrap"><h2>从一个场景开始。</h2><a class="button primary" href="app/">打开工作台 →</a></section>
+  </main>
+  <footer class="wrap"><span>© 2026 Twin Studio · <a href="https://github.com/anticipate218">anticipate218</a></span><span>开源代码 MIT · 示例数据不含真实城市证据</span></footer>
+  <script src="site.js" defer></script>
+</body>
+</html>
